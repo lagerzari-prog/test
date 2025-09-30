@@ -1,12 +1,18 @@
-<?php 
-$name = $_POST['name'] ?? '';
-$email = $_POST['email'] ?? '';
-
-if ($name && $email) {
-    file_put_contents('users.txt', "$name, $email\n", FILE_APPEND);
-    echo "<h1>Спасибо, $name! Вы зарегистрированы.</h1>";
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    
+    // Сохраняем данные в файл
+    $data = "Имя: $name | Email: $email | Время: " . date('Y-m-d H:i:s') . "\n";
+    file_put_contents('users.txt', $data, FILE_APPEND | LOCK_EX);
+    
+    // Перенаправляем на страницу благодарности
+    header('Location: ../frontend/thank-you.html');
+    exit();
 } else {
-    echo "<h1>Ошибка: все поля обязательны</h1>";
+    // Если кто-то попытался открыть файл напрямую
+    header('Location: ../frontend/form.html');
+    exit();
 }
-echo "<a href='../frontend/form.html'>Назад</a>"
 ?>
