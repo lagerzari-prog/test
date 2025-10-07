@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Наши автомобили</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav>...</nav>
+    
+    <h1>Наш автопарк</h1>
+    <div id="cars-container">
+        <!-- Автомобили загружаются через JS -->
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Загрузка автомобилей при открытии страницы
+        document.addEventListener('DOMContentLoaded', async () => {
+            const cars = await loadCars();
+            displayCars(cars);
+        });
+    </script>
+</body>
+</html>
